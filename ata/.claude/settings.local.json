@@ -20,7 +20,8 @@
       "Bash(bash /tmp/audit.sh)",
       "Bash(bash /tmp/final_audit.sh)",
       "Bash(bash /tmp/venture_analysis.sh)",
-      "Bash(cd /Users/wxza/Desktop/WXZA/ata/src rm -rf hooks)"
+      "Bash(cd /Users/wxza/Desktop/WXZA/ata/src rm -rf hooks)",
+      "Bash(python3)"
     ]
   }
 }
