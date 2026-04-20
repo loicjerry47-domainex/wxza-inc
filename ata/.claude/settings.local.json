@@ -13,7 +13,14 @@
       "Bash(grep -iv \"^figma$\")",
       "Bash(grep -iv \"^chambers$\")",
       "Bash(npm install *)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(npm run *)",
+      "Bash(grep -E \"^[a-z].*\\\\.tsx$\")",
+      "Bash(cat)",
+      "Bash(bash /tmp/audit.sh)",
+      "Bash(bash /tmp/final_audit.sh)",
+      "Bash(bash /tmp/venture_analysis.sh)",
+      "Bash(cd /Users/wxza/Desktop/WXZA/ata/src rm -rf hooks)"
     ]
   }
 }
