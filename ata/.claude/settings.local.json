@@ -12,7 +12,8 @@
       "Bash(grep -iv \"^ui$\")",
       "Bash(grep -iv \"^figma$\")",
       "Bash(grep -iv \"^chambers$\")",
-      "Bash(npm install *)"
+      "Bash(npm install *)",
+      "WebFetch(domain:github.com)"
     ]
   }
 }
