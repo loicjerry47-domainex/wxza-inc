@@ -6,4 +6,4 @@ export { RealTimeMetricsDashboard } from './RealTimeMetricsDashboard';
 export { CostCalculator } from './CostCalculator';
 export { SecurityComplianceTracker } from './SecurityComplianceTracker';
 export { PROSUserJourneyMap, PROSUserJourneyMap as UserJourneyMap } from './UserJourneyMap';
-export { FinancialProjections } from './FinancialProjections';
+export { PROSFinancialProjections, PROSFinancialProjections as FinancialProjections } from './FinancialProjections';
