@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
+import { LiveTicker } from "./shared/LiveTicker";
 import { 
   Leaf,
   TreePine,
@@ -153,6 +154,20 @@ export function NimbusBiomePrototype({ deviceView }: NimbusBiomePrototypeProps) 
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Live ambient metrics */}
+        <div className="px-4 pt-4">
+          <LiveTicker
+            caption="BIOME LIVE"
+            pulseColor="bg-emerald-400"
+            metrics={[
+              { label: 'Ecosystems Online', base: 1247, drift: 1, counter: true, accent: 'text-emerald-300' },
+              { label: 'Avg Humidity', base: 68, drift: 1.5, min: 55, max: 85, suffix: '%', decimals: 1, accent: 'text-cyan-300' },
+              { label: 'Avg Temp', base: 72, drift: 0.8, min: 68, max: 78, suffix: '°F', decimals: 1, accent: 'text-amber-300' },
+              { label: 'CO₂ Offset', base: 847, drift: 2, counter: true, suffix: ' kg', accent: 'text-green-300' },
+            ]}
+          />
         </div>
 
         {/* Hero Section */}

@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
+import { EverBloomPrototype } from "./EverBloomPrototype";
 import { 
   Flower,
   Flower2,
@@ -445,28 +446,28 @@ export function HfloPrototype({ deviceView }: HfloPrototypeProps) {
           </AnimatePresence>
         )}
 
-        {/* NOTE: Lifecycle, My Flowers, Device, and Vision sections are identical to EverBloom */}
-        {/* For brevity, showing placeholder text. Full implementation would include all sections */}
+        {/* Non-hero sections render the full bloom ecosystem (shared implementation). */}
         {activeSection !== 'hero' && (
-          <div className="p-12 max-w-7xl mx-auto text-center">
-            <h2 className="text-4xl font-black text-amber-400 mb-4">
-              {activeSection === 'lifecycle' && 'Flower Lifecycle'}
-              {activeSection === 'myflowers' && 'My Digital Garden'}
-              {activeSection === 'device' && 'The HFLO Device'}
-              {activeSection === 'vision' && '$40.5M Vision'}
-            </h2>
-            <p className="text-xl text-amber-200/80 max-w-2xl mx-auto mb-8">
-              This section contains the same comprehensive features as EverBloom,<br />
-              showcasing the complete solar-powered holographic flower ecosystem.
-            </p>
-            <Button
-              size="lg"
-              onClick={() => setActiveSection('hero')}
-              className="bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 font-black"
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeSection}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
             >
-              Back to Home
-            </Button>
-          </div>
+              <EverBloomPrototype deviceView={deviceView} initialSection={activeSection} />
+              <div className="py-8 text-center border-t border-amber-500/10">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  onClick={() => setActiveSection('hero')}
+                  className="border-amber-500/30 text-amber-300 hover:bg-amber-500/10 font-black"
+                >
+                  ← Back to HFLO Overview
+                </Button>
+              </div>
+            </motion.div>
+          </AnimatePresence>
         )}
       </div>
     </div>

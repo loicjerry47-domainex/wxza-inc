@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
+import { LiveTicker } from "./shared/LiveTicker";
 import { 
   Glasses,
   Sparkles,
@@ -245,6 +246,20 @@ export function LensstormPrototype({ deviceView }: LensstormPrototypeProps) {
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Live ambient metrics */}
+        <div className="px-4 pt-4">
+          <LiveTicker
+            caption="LENS ACTIVE"
+            pulseColor="bg-cyan-400"
+            metrics={[
+              { label: 'Overlays Rendered/sec', base: 248, drift: 4, min: 200, max: 320, accent: 'text-cyan-300' },
+              { label: 'Focus Fidelity', base: 99.4, drift: 0.3, min: 97, max: 100, suffix: '%', decimals: 2, accent: 'text-sky-300' },
+              { label: 'Battery Draw', base: 1.8, drift: 0.15, min: 1.2, max: 2.4, suffix: 'W', decimals: 2, accent: 'text-amber-300' },
+              { label: 'Active Pairs', base: 12403, drift: 1, counter: true, accent: 'text-indigo-300' },
+            ]}
+          />
         </div>
 
         {/* Hero Section */}

@@ -82,7 +82,18 @@ export function ConsciousnessProvider({ children }: { children: React.ReactNode 
   // Live ref — updated at 60fps for canvas components, no re-renders
   const liveRef = useRef<ConsciousnessState>({ ...initialState });
 
-  // Saturation (0–100): Origin builds it up, Omega resets it.
+  // Saturation (0–100): the Origin → Omega journey.
+  //
+  // The Omega chamber is NOT invocable by keyword (see secret-invocation.tsx —
+  // "omega" is intentionally absent from INVOCATIONS). It is reached only by:
+  //   1. Typing "origin" to enter /origin
+  //   2. Moving the cursor on that canvas to build saturation (addSaturation)
+  //   3. When saturation reaches 100, origin-chamber shows "the threshold opens"
+  //      and auto-navigates to /omega
+  //   4. Omega plays its collapse and calls resetSaturation() to close the loop
+  //
+  // Do not expose saturation in the nav or elsewhere — it is meant to be felt,
+  // not measured. The saturation meter in OriginChamber is the only surface.
   const [saturation, setSaturation] = useState(0);
   const saturationRef = useRef(0);
   const lastSatFlushRef = useRef(Date.now());

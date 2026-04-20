@@ -45,6 +45,15 @@ import { BreathingTileBackground } from "./components/shared/BreathingTileBackgr
 
 const ventures = [
   {
+    id: 'pros',
+    name: 'PRO\'S: Divine Machine',
+    tagline: 'AI-Powered Idea-to-Reality Engine',
+    category: 'Project Management / Holographic UI',
+    value: 'FLAGSHIP',
+    flagship: true,
+    component: ProsShowcase
+  },
+  {
     id: 'atable-neural',
     name: 'ATABLE NEURAL 2077',
     tagline: 'AI-Native Security Orchestration',
@@ -61,20 +70,20 @@ const ventures = [
     component: NimbusBiomeShowcase
   },
   {
-    id: 'lensstorm',
-    name: 'LENSSTORM',
-    tagline: 'Invisible AR for Eyewear',
-    category: 'AR Wearables / Optics',
-    value: 'CONCEPT',
-    component: LensstormShowcase
-  },
-  {
     id: 'oto',
     name: 'OTO',
     tagline: 'AI Relationship CRM',
     category: 'CRM / AI Automation',
     value: '$680M',
     component: OtoShowcase
+  },
+  {
+    id: 'lensstorm',
+    name: 'LENSSTORM',
+    tagline: 'Invisible AR for Eyewear',
+    category: 'AR Wearables / Optics',
+    value: 'CONCEPT',
+    component: LensstormShowcase
   },
   {
     id: 'hflo',
@@ -99,14 +108,6 @@ const ventures = [
     category: 'Assistive Technology / Healthcare',
     value: 'CONCEPT',
     component: HearbAssistShowcase
-  },
-  {
-    id: 'pros',
-    name: 'PRO\'S: Divine Machine',
-    tagline: 'AI-Powered Idea-to-Reality Engine',
-    category: 'Project Management / Holographic UI',
-    value: 'CONCEPT',
-    component: ProsShowcase
   },
   {
     id: 'inect',
@@ -501,55 +502,74 @@ export default function App() {
                   viewport={SCROLL_ANIMATIONS.viewport}
                   variants={VARIANTS.staggerContainer}
                 >
-                  {ventures.map((venture, idx) => (
-                    <motion.div
-                      key={venture.id}
-                      variants={VARIANTS.staggerItem}
-                      transition={createTransition('normal', 'diamond', getStaggerDelay(idx, 'tiny'))}
-                      whileHover={{ y: -8, scale: 1.01 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="glass-light glass-hover-static liquid-border rounded-2xl p-6 cursor-pointer group relative overflow-hidden"
-                      onClick={() => handleVentureClick(venture.id)}
-                    >
-                      <div className="relative z-10">
-                        <div className="flex items-start justify-between mb-4">
-                          <div className="flex-1">
-                            <h4 className="font-black mb-1 group-hover:text-sky-300 transition-colors tracking-wide">
-                              {venture.name}
-                            </h4>
-                            <p className="text-xs text-gray-500">{venture.tagline}</p>
+                  {ventures.map((venture, idx) => {
+                    const isFlagship = (venture as any).flagship;
+                    return (
+                      <motion.div
+                        key={venture.id}
+                        variants={VARIANTS.staggerItem}
+                        transition={createTransition('normal', 'diamond', getStaggerDelay(idx, 'tiny'))}
+                        whileHover={{ y: -8, scale: 1.01 }}
+                        whileTap={{ scale: 0.98 }}
+                        className={`liquid-border rounded-2xl p-6 cursor-pointer group relative overflow-hidden ${
+                          isFlagship
+                            ? 'glass-strong md:col-span-2 lg:col-span-3 border border-sky-400/30 shadow-2xl shadow-sky-500/10'
+                            : 'glass-light glass-hover-static'
+                        }`}
+                        onClick={() => handleVentureClick(venture.id)}
+                      >
+                        {isFlagship && (
+                          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-sky-400/60 to-transparent" />
+                        )}
+                        <div className="relative z-10">
+                          {isFlagship && (
+                            <Badge className="bg-sky-500/20 text-sky-200 border border-sky-400/40 mb-4 text-[10px] tracking-[0.3em] uppercase">
+                              Flagship
+                            </Badge>
+                          )}
+                          <div className="flex items-start justify-between mb-4">
+                            <div className="flex-1">
+                              <h4 className={`font-black mb-1 group-hover:text-sky-300 transition-colors tracking-wide ${isFlagship ? 'text-2xl' : ''}`}>
+                                {venture.name}
+                              </h4>
+                              <p className={`text-gray-500 ${isFlagship ? 'text-sm' : 'text-xs'}`}>{venture.tagline}</p>
+                            </div>
                           </div>
-                        </div>
 
-                        <div className="space-y-3">
-                          <div className="text-[10px] uppercase tracking-widest text-gray-600">{venture.category}</div>
-                          <div className="flex items-center justify-between pt-3 border-t border-white/5">
-                            <span className="text-[10px] uppercase tracking-widest text-gray-600">Value</span>
-                            <span className="font-bold text-sky-300">
-                              {venture.value}
+                          <div className="space-y-3">
+                            <div className="text-[10px] uppercase tracking-widest text-gray-600">{venture.category}</div>
+                            <div className="flex items-center justify-between pt-3 border-t border-white/5">
+                              <span className="text-[10px] uppercase tracking-widest text-gray-600">
+                                {isFlagship ? 'Status' : 'Value'}
+                              </span>
+                              <span className={`font-bold ${isFlagship ? 'text-sky-200' : 'text-sky-300'}`}>
+                                {venture.value}
+                              </span>
+                            </div>
+                          </div>
+
+                          <motion.div
+                            className="mt-4 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-gray-600 group-hover:text-sky-300 transition-colors"
+                            initial={{ x: 0 }}
+                            whileHover={{ x: 4 }}
+                            transition={{ duration: DURATION.fast }}
+                          >
+                            <span className="uppercase tracking-widest">
+                              {isFlagship ? 'Enter the Divine Machine' : 'View'}
                             </span>
-                          </div>
+                            <span>→</span>
+                          </motion.div>
                         </div>
-
-                        <motion.div 
-                          className="mt-4 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-gray-600 group-hover:text-sky-300 transition-colors"
-                          initial={{ x: 0 }}
-                          whileHover={{ x: 4 }}
-                          transition={{ duration: DURATION.fast }}
-                        >
-                          <span className="uppercase tracking-widest">View</span>
-                          <span>→</span>
-                        </motion.div>
-                      </div>
-                    </motion.div>
-                  ))}
+                      </motion.div>
+                    );
+                  })}
                 </motion.div>
               </div>
             </section>
 
             {/* Footer */}
             <footer className="py-12 px-6 border-t border-white/10">
-              <div className="max-w-7xl mx-auto">
+              <div className="max-w-7xl mx-auto space-y-6">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-gradient-to-br from-sky-600 to-blue-600 rounded-lg flex items-center justify-center">
@@ -562,6 +582,7 @@ export default function App() {
                   </div>
 
                   <div className="flex items-center gap-6 text-sm text-gray-500">
+                    <a href="/ethics" className="hover:text-sky-300 transition-colors">Ethics</a>
                     <a href="#" className="hover:text-sky-300 transition-colors">Privacy</a>
                     <a href="#" className="hover:text-sky-300 transition-colors">Terms</a>
                     <a href="mailto:wxzata@proton.me" className="hover:text-sky-300 transition-colors">Contact</a>
@@ -570,6 +591,13 @@ export default function App() {
                   <div className="text-sm text-gray-500">
                     © 2025 WXZA Inc. All rights reserved.
                   </div>
+                </div>
+
+                {/* The architecture listens. */}
+                <div className="pt-6 border-t border-white/5 text-center">
+                  <p className="text-[10px] italic tracking-[0.3em] text-gray-700 select-none">
+                    the architecture listens
+                  </p>
                 </div>
               </div>
             </footer>

@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
+import { LiveTicker } from "./shared/LiveTicker";
 import { 
   CreditCard,
   Repeat,
@@ -153,6 +154,20 @@ export function GcraftPrototype({ deviceView }: GcraftPrototypeProps) {
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Live ambient metrics */}
+        <div className="px-4 pt-4">
+          <LiveTicker
+            caption="MARKET LIVE"
+            pulseColor="bg-fuchsia-400"
+            metrics={[
+              { label: 'Cards Listed', base: 18420, drift: 2, counter: true, accent: 'text-fuchsia-300' },
+              { label: 'Avg Discount', base: 11.4, drift: 0.4, min: 8, max: 16, suffix: '%', decimals: 2, accent: 'text-rose-300' },
+              { label: 'Volume / hr', base: 42830, drift: 180, min: 30000, max: 60000, prefix: '$', accent: 'text-emerald-300' },
+              { label: 'Trades Today', base: 3247, drift: 2, counter: true, accent: 'text-sky-300' },
+            ]}
+          />
         </div>
 
         {/* Hero Section */}

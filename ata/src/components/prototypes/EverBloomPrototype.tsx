@@ -32,12 +32,16 @@ import {
   Save
 } from "lucide-react";
 
+type BloomSection = 'hero' | 'lifecycle' | 'myflowers' | 'device' | 'vision';
+
 interface EverBloomPrototypeProps {
   deviceView: 'desktop' | 'tablet' | 'mobile';
+  /** Optional starting section. Lets parent prototypes (e.g. HFLO) open the bloom experience on a specific section. */
+  initialSection?: BloomSection;
 }
 
-export function EverBloomPrototype({ deviceView }: EverBloomPrototypeProps) {
-  const [activeSection, setActiveSection] = useState<'hero' | 'lifecycle' | 'myflowers' | 'device' | 'vision'>('hero');
+export function EverBloomPrototype({ deviceView, initialSection = 'hero' }: EverBloomPrototypeProps) {
+  const [activeSection, setActiveSection] = useState<BloomSection>(initialSection);
   const [selectedFlower, setSelectedFlower] = useState<any>(null);
   const [flowersSold, setFlowersSold] = useState(24789);
   const [co2Saved, setCo2Saved] = useState(297);

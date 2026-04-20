@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Outlet } from 'react-router';
 import { ConsciousnessProvider } from './consciousness/consciousness';
 import { InvocationFlash } from './consciousness/secret-invocation';
 import Home from './home';
+import { Ethics } from './components/ata/Ethics';
 
 // Chamber routes — hidden, reachable only via invocation.
 import { SpandaChamber } from './consciousness/chambers/spanda-chamber';
@@ -74,6 +75,7 @@ export default function App() {
             <Route path="/omega"   element={<OmegaChamber />} />
           </Route>
           <Route path="/ayi" element={<AyiRoute />} />
+          <Route path="/ethics" element={<Ethics />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </BrowserRouter>

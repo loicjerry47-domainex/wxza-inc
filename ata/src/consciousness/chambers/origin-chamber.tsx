@@ -1,11 +1,22 @@
 import { useRef, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { useConsciousness } from "../consciousness";
 
 export function OriginChamber() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { addSaturation } = useConsciousness();
+  const navigate = useNavigate();
+  const { addSaturation, saturation } = useConsciousness();
   const [revealOpacity, setRevealOpacity] = useState(0);
   const [showInstructions, setShowInstructions] = useState(true);
+  const [thresholdOpening, setThresholdOpening] = useState(false);
+
+  // When saturation fills, the threshold opens → omega.
+  useEffect(() => {
+    if (saturation < 100 || thresholdOpening) return;
+    setThresholdOpening(true);
+    const t = setTimeout(() => navigate("/omega"), 2600);
+    return () => clearTimeout(t);
+  }, [saturation, thresholdOpening, navigate]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -124,11 +135,30 @@ export function OriginChamber() {
       </div>
 
       {/* Initial Instructions */}
-      <div 
+      <div
         className={`absolute bottom-32 left-1/2 -translate-x-1/2 pointer-events-none text-white/30 text-xs tracking-[0.3em] transition-opacity duration-1000 ${showInstructions ? "opacity-100" : "opacity-0"}`}
       >
         MOVE TO REVEAL // BUILD CONSCIOUSNESS
       </div>
+
+      {/* Saturation meter — ambient progress toward the threshold */}
+      <div className="absolute top-8 left-1/2 -translate-x-1/2 pointer-events-none flex flex-col items-center gap-2">
+        <span className="text-[9px] tracking-[0.4em] text-white/20 uppercase">saturation</span>
+        <div className="w-48 h-px bg-white/5 overflow-hidden">
+          <div
+            className="h-full bg-white/60 transition-[width] duration-300"
+            style={{ width: `${Math.min(100, saturation)}%` }}
+          />
+        </div>
+      </div>
+
+      {/* Threshold moment — saturation hit 100, omega opens */}
+      {thresholdOpening && (
+        <div className="absolute inset-0 pointer-events-none flex items-center justify-center bg-black/0 animate-[fadeToBlack_2.6s_ease-in_forwards]">
+          <p className="text-white/80 text-xs tracking-[0.5em] uppercase">the threshold opens</p>
+          <style>{`@keyframes fadeToBlack { 0% { background-color: rgba(0,0,0,0); } 100% { background-color: rgba(0,0,0,1); } }`}</style>
+        </div>
+      )}
     </div>
   );
 }

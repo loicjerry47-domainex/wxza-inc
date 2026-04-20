@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
+import { LiveTicker } from "./shared/LiveTicker";
 import { 
   Glasses,
   Calendar,
@@ -249,6 +250,20 @@ export function InectPrototype({ deviceView }: InectPrototypeProps) {
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Live ambient metrics */}
+        <div className="px-4 pt-4">
+          <LiveTicker
+            caption="BROADCAST LIVE"
+            pulseColor="bg-rose-400"
+            metrics={[
+              { label: 'Concurrent Viewers', base: 287420, drift: 850, min: 240000, max: 360000, accent: 'text-rose-300' },
+              { label: 'Streams Active', base: 126, drift: 1, min: 90, max: 180, accent: 'text-pink-300' },
+              { label: 'Avg Bitrate', base: 28.4, drift: 0.6, min: 24, max: 34, suffix: ' Mbps', decimals: 1, accent: 'text-amber-300' },
+              { label: 'Tickets Sold', base: 41200, drift: 3, counter: true, accent: 'text-emerald-300' },
+            ]}
+          />
         </div>
 
         {/* Hero Section */}

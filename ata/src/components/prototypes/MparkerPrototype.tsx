@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
+import { LiveTicker } from "./shared/LiveTicker";
 import { 
   Car,
   ParkingCircle,
@@ -262,6 +263,20 @@ export function MparkerPrototype({ deviceView }: MparkerPrototypeProps) {
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Live ambient metrics */}
+        <div className="px-4 pt-4">
+          <LiveTicker
+            caption="CITY LIVE"
+            pulseColor="bg-indigo-400"
+            metrics={[
+              { label: 'Hubs Online', base: 38, drift: 0, min: 38, max: 38, accent: 'text-indigo-300' },
+              { label: 'Vehicles Routed', base: 18420, drift: 3, counter: true, accent: 'text-sky-300' },
+              { label: 'Avg Dwell', base: 4.2, drift: 0.2, min: 3.2, max: 5.8, suffix: ' min', decimals: 1, accent: 'text-emerald-300' },
+              { label: 'Occupancy', base: 73, drift: 1.5, min: 50, max: 92, suffix: '%', decimals: 1, accent: 'text-amber-300' },
+            ]}
+          />
         </div>
 
         {/* Hero Section */}

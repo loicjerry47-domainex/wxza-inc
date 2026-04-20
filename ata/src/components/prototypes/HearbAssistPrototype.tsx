@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
+import { LiveTicker } from "./shared/LiveTicker";
 import { 
   Scan,
   ScanLine,
@@ -252,6 +253,20 @@ export function HearbAssistPrototype({ deviceView }: HearbAssistPrototypeProps) 
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Live ambient metrics */}
+        <div className="px-4 pt-4">
+          <LiveTicker
+            caption="ASSIST LIVE"
+            pulseColor="bg-violet-400"
+            metrics={[
+              { label: 'Users Assisted', base: 84250, drift: 1, counter: true, accent: 'text-violet-300' },
+              { label: 'Objects Recognized / hr', base: 18420, drift: 60, min: 14000, max: 24000, accent: 'text-sky-300' },
+              { label: 'Navigation Fidelity', base: 98.7, drift: 0.2, min: 96, max: 100, suffix: '%', decimals: 2, accent: 'text-emerald-300' },
+              { label: 'Response Latency', base: 84, drift: 6, min: 60, max: 120, suffix: ' ms', accent: 'text-amber-300' },
+            ]}
+          />
         </div>
 
         {/* Hero Section */}
