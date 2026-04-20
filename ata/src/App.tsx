@@ -4,6 +4,8 @@ import { ConsciousnessProvider } from './consciousness/consciousness';
 import { InvocationFlash } from './consciousness/secret-invocation';
 import Home from './home';
 import { Ethics } from './components/ata/Ethics';
+import { Privacy } from './components/legal/Privacy';
+import { Terms } from './components/legal/Terms';
 
 // Chamber routes — hidden, reachable only via invocation.
 import { SpandaChamber } from './consciousness/chambers/spanda-chamber';
@@ -76,6 +78,8 @@ export default function App() {
           </Route>
           <Route path="/ayi" element={<AyiRoute />} />
           <Route path="/ethics" element={<Ethics />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </BrowserRouter>

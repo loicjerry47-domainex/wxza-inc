@@ -79,11 +79,29 @@ const generateWxzaContext = (userInput: string): string => {
 
 type OperatingMode = 'quantum_variance' | 'absolute_zero' | null;
 
+const AYI_STORAGE_KEY = 'wxza.ayi.messages.v1';
+
+function loadStoredMessages(): ChatMessage[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = window.localStorage.getItem(AYI_STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    // Strip transient fields that shouldn't rehydrate
+    return parsed
+      .filter((m) => m && typeof m.id === 'string' && typeof m.role === 'string')
+      .map((m) => ({ ...m, isStreaming: false, generationStatus: m.generationStatus === 'done' ? 'done' : undefined }));
+  } catch {
+    return [];
+  }
+}
+
 const App: React.FC = () => {
   // Reaching this route means the invocation was already spoken.
   const [isManifested] = useState<boolean>(true);
   const [operatingMode, setOperatingMode] = useState<OperatingMode>(null);
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>(() => loadStoredMessages());
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [ai, setAi] = useState<GoogleGenAI | null>(null);
@@ -97,6 +115,24 @@ const App: React.FC = () => {
 
   // The global unified invocation system owns the "hello world" phrase now.
   // The per-app keyboard listener has been removed to avoid double-handling.
+
+  // Persist chat history to localStorage. Object URLs (images/files) won't
+  // survive serialization — that's OK: text, hosted imageUrl, videoUrl all do.
+  useEffect(() => {
+    try {
+      // Only persist fully-settled messages (skip in-flight streams)
+      const persistable = messages
+        .filter((m) => !m.isStreaming)
+        .slice(-50); // cap at last 50 messages so storage doesn't balloon
+      if (persistable.length > 0) {
+        window.localStorage.setItem(AYI_STORAGE_KEY, JSON.stringify(persistable));
+      } else {
+        window.localStorage.removeItem(AYI_STORAGE_KEY);
+      }
+    } catch {
+      // Quota exceeded or disabled — silently ignore
+    }
+  }, [messages]);
 
   useEffect(() => {
     const checkKey = async () => {
@@ -132,8 +168,12 @@ const App: React.FC = () => {
   };
   
   const handleSendChatMessage = useCallback(async (userInput: string, attachedFile?: File, useSearch: boolean = false) => {
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY || process.env.API_KEY || '';
-    const aiInstance = new GoogleGenAI({ apiKey });
+    // Calls are proxied through /api/ayi — the real Gemini key lives in the
+    // Cloudflare Pages Function's env, never in the bundle.
+    const aiInstance = new GoogleGenAI({
+      apiKey: 'proxied',
+      httpOptions: { baseUrl: `${window.location.origin}/api/ayi` },
+    });
     let modelStreamMessageId = '';
     try {
       let modelName = 'gemini-3.1-flash-lite-preview';
@@ -362,8 +402,10 @@ ${systemLevel >= 16 ? '\nCOUNCIL OF MINDS MODE ACTIVE: Before providing your fin
   }, [messages, isLeapMode, systemLevel]);
 
   const handleGenerateImage = useCallback(async (userInput: string, useSearch: boolean = false) => {
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY || process.env.API_KEY || '';
-    const aiInstance = new GoogleGenAI({ apiKey });
+    const aiInstance = new GoogleGenAI({
+      apiKey: 'proxied',
+      httpOptions: { baseUrl: `${window.location.origin}/api/ayi` },
+    });
     const timestamp = Date.now();
     const modelMessageId = `${timestamp}-model`;
     setMessages(prev => [...prev, { id: `${timestamp}-user`, role: 'user', content: userInput }, { id: modelMessageId, role: 'model', content: '', generationStatus: 'generating', isLeap: isLeapMode }]);

@@ -1,4 +1,11 @@
+import { usePageMeta } from '../../lib/usePageMeta';
+
 export function Ethics() {
+  usePageMeta({
+    title: 'Ethics Code — WXZA',
+    description: 'WXZA Inc.\'s living ethics framework — stewarding cognitive systems, quantum computing, molecular engineering, and energy paradigms.',
+  });
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-black via-neutral-950 to-black relative">
       {/* Background Effect */}

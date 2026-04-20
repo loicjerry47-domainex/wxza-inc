@@ -13,5 +13,16 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!--
+      Cloudflare Web Analytics — privacy-friendly, cookieless.
+      Get a token from Cloudflare dashboard → Analytics & Logs → Web Analytics → Add a site,
+      then replace the token below. The beacon is a no-op without a valid token.
+    -->
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "REPLACE_WITH_CF_ANALYTICS_TOKEN"}'
+    ></script>
   </body>
 </html>

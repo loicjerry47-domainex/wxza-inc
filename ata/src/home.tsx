@@ -42,6 +42,8 @@ import { MparkerShowcase } from "./components/prototypes/MparkerShowcase";
 import { ScrollToTop } from "./components/shared/ScrollToTop";
 import { KeyboardShortcutsPanel } from "./components/shared/KeyboardShortcutsPanel";
 import { BreathingTileBackground } from "./components/shared/BreathingTileBackground";
+import { ContactModal } from "./components/shared/ContactModal";
+import { usePageMeta } from "./lib/usePageMeta";
 
 const ventures = [
   {
@@ -132,6 +134,12 @@ export default function App() {
   const [selectedVenture, setSelectedVenture] = useState<string | null>(null);
   const [deviceView] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
+
+  usePageMeta({
+    title: 'WXZA — Architecting Contradictions into Innovation',
+    description: 'WXZA Inc. — early-stage ventures engineering paradoxes into breakthrough innovation.',
+  });
 
   // Parallax scroll effects
   const { scrollY } = useScroll();
@@ -250,14 +258,15 @@ export default function App() {
                   >
                     Ventures
                   </motion.a>
-                  <motion.a 
-                    href="mailto:wxzata@proton.me" 
+                  <motion.button
+                    type="button"
+                    onClick={() => setContactOpen(true)}
                     className="text-xs uppercase tracking-widest text-gray-500 hover:text-white transition-colors"
                     whileHover={{ y: -2 }}
                     transition={{ duration: DURATION.fast }}
                   >
                     Contact
-                  </motion.a>
+                  </motion.button>
                   <Badge className="bg-sky-500/10 text-sky-300 border border-sky-500/20 text-xs">2025</Badge>
                 </nav>
 
@@ -283,7 +292,7 @@ export default function App() {
                   >
                     <nav className="px-6 py-4 space-y-3">
                       <a href="#ventures" className="block text-xs uppercase tracking-widest text-gray-500 hover:text-white transition-colors">Ventures</a>
-                      <a href="mailto:wxzata@proton.me" className="block text-xs uppercase tracking-widest text-gray-500 hover:text-white transition-colors">Contact</a>
+                      <button type="button" onClick={() => { setMobileMenuOpen(false); setContactOpen(true); }} className="block w-full text-left text-xs uppercase tracking-widest text-gray-500 hover:text-white transition-colors">Contact</button>
                     </nav>
                   </motion.div>
                 )}
@@ -347,7 +356,12 @@ export default function App() {
                     </Button>
                   </motion.div>
                   <motion.div whileHover={INTERACTIONS.buttonHover} whileTap={INTERACTIONS.buttonTap}>
-                    <Button size="lg" variant="outline" className="border-sky-500/50 text-sky-300 hover:bg-sky-500/10">
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      onClick={() => setContactOpen(true)}
+                      className="border-sky-500/50 text-sky-300 hover:bg-sky-500/10"
+                    >
                       <Target className="mr-2 h-5 w-5" />
                       Partner With Us
                     </Button>
@@ -583,9 +597,9 @@ export default function App() {
 
                   <div className="flex items-center gap-6 text-sm text-gray-500">
                     <a href="/ethics" className="hover:text-sky-300 transition-colors">Ethics</a>
-                    <a href="#" className="hover:text-sky-300 transition-colors">Privacy</a>
-                    <a href="#" className="hover:text-sky-300 transition-colors">Terms</a>
-                    <a href="mailto:wxzata@proton.me" className="hover:text-sky-300 transition-colors">Contact</a>
+                    <a href="/privacy" className="hover:text-sky-300 transition-colors">Privacy</a>
+                    <a href="/terms" className="hover:text-sky-300 transition-colors">Terms</a>
+                    <button type="button" onClick={() => setContactOpen(true)} className="hover:text-sky-300 transition-colors">Contact</button>
                   </div>
 
                   <div className="text-sm text-gray-500">
@@ -670,6 +684,9 @@ export default function App() {
 
       {/* Keyboard Shortcuts Panel */}
       <KeyboardShortcutsPanel />
+
+      {/* Contact modal — opens from nav + footer + hero CTA */}
+      <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
     </div>
   );
 }
