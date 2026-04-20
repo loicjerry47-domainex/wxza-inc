@@ -5,5 +5,5 @@ export { APIPlayground } from './APIPlayground';
 export { RealTimeMetricsDashboard } from './RealTimeMetricsDashboard';
 export { CostCalculator } from './CostCalculator';
 export { SecurityComplianceTracker } from './SecurityComplianceTracker';
-export { PROSUserJourneyMap } from './UserJourneyMap';
+export { PROSUserJourneyMap, PROSUserJourneyMap as UserJourneyMap } from './UserJourneyMap';
 export { FinancialProjections } from './FinancialProjections';
