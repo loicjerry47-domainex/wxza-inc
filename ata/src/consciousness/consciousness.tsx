@@ -99,9 +99,14 @@ export function ConsciousnessProvider({ children }: { children: React.ReactNode 
   const lastSatFlushRef = useRef(Date.now());
   const addSaturation = useCallback((amount: number) => {
     if (saturationRef.current >= 100) return;
-    saturationRef.current = Math.min(100, saturationRef.current + amount);
+    const prev = saturationRef.current;
+    saturationRef.current = Math.min(100, prev + amount);
+    // Always flush on the 100 crossing so OriginChamber's effect can fire.
+    // Otherwise the last increment can land inside the 150ms throttle window
+    // and state stays stuck below 100, never unlocking Omega.
+    const reachedMax = saturationRef.current >= 100 && prev < 100;
     const now = Date.now();
-    if (now - lastSatFlushRef.current > 150) {
+    if (reachedMax || now - lastSatFlushRef.current > 150) {
       setSaturation(saturationRef.current);
       lastSatFlushRef.current = now;
     }

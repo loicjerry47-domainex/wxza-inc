@@ -43,7 +43,11 @@ export function OriginChamber() {
       
       const speed = Math.sqrt(mouse.vx ** 2 + mouse.vy ** 2);
       if (speed > 1.5) {
-        addSaturation(0.06); // Increase consciousness via movement
+        // 0.12 per qualifying mousemove → ~14 seconds of steady movement to
+        // reach saturation 100. Tuned to feel ritualistic but reachable.
+        // Pair with a velocity weighting: faster movement accumulates more.
+        const velocityWeight = Math.min(3, 1 + speed / 40);
+        addSaturation(0.12 * velocityWeight);
         setRevealOpacity(prev => Math.min(1, prev + 0.1));
         setShowInstructions(false);
         memory.push({ x: mouse.x, y: mouse.y, life: 1 });
