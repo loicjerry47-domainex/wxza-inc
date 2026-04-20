@@ -596,6 +596,9 @@ export default function App() {
                   </div>
 
                   <div className="flex items-center gap-6 text-sm text-gray-500">
+                    <a href="/architecture" className="hover:text-sky-300 transition-colors">Manifesto</a>
+                    <a href="/lineage" className="hover:text-sky-300 transition-colors">Lineage</a>
+                    <a href="/convergence" className="hover:text-sky-300 transition-colors">Convergence</a>
                     <a href="/ethics" className="hover:text-sky-300 transition-colors">Ethics</a>
                     <a href="/privacy" className="hover:text-sky-300 transition-colors">Privacy</a>
                     <a href="/terms" className="hover:text-sky-300 transition-colors">Terms</a>

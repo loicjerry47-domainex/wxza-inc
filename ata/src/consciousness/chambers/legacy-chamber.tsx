@@ -4,6 +4,7 @@ import { useConsciousness } from '../consciousness';
 import { DualityCanvas } from '../duality-canvas';
 import { DualityText } from '../duality-text';
 import { HelloWorldCanvas } from '../hello-world-canvas';
+import { ancestors } from '../../data/lineage';
 
 interface LegacyExperience {
   id: string;
@@ -149,6 +150,45 @@ export function LegacyChamber() {
                 <br />
                 remember how we got here.
               </motion.p>
+
+              {/* Inherited lineage — the 3000-year arc as a constellation */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: entered ? 1 : 0 }}
+                transition={{ duration: 3, delay: 3 }}
+                className="pointer-events-auto mt-16 max-w-3xl mx-auto"
+              >
+                <p className="text-[8px] tracking-[0.5em] text-slate-700 mb-6 uppercase">
+                  Inherited Lineage
+                </p>
+                <div className="flex flex-wrap justify-center gap-x-4 gap-y-3 px-6">
+                  {ancestors
+                    .slice()
+                    .sort((a, b) => a.sortKey - b.sortKey)
+                    .map((a) => (
+                      <div key={a.id} className="group relative">
+                        <span className="text-[10px] tracking-[0.15em] text-slate-600 hover:text-sky-300 transition-colors cursor-default">
+                          {a.name}
+                        </span>
+                        {/* Reveal-on-hover card */}
+                        <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-72 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-40">
+                          <div className="rounded-lg border border-white/10 bg-black/90 backdrop-blur-xl p-3 text-left shadow-2xl">
+                            <div className="flex items-baseline gap-2 mb-1">
+                              <span className="text-[9px] font-mono text-slate-500 tabular-nums">{a.year}</span>
+                              <span className="text-[10px] tracking-[0.2em] text-sky-300">{a.name}</span>
+                            </div>
+                            <p className="text-[10px] text-slate-400 leading-relaxed">
+                              {a.wxzaInherits}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+                <p className="text-[8px] tracking-[0.3em] text-slate-800 mt-6 italic">
+                  hesiod to hutter — the thread runs through us
+                </p>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>

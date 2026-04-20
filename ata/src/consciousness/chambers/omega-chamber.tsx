@@ -143,31 +143,48 @@ export function OmegaChamber() {
         className="absolute inset-0 block w-full h-full z-10 mix-blend-screen pointer-events-none" 
       />
       
-      {/* Background text during collapse */}
-      <div 
-        className={`z-0 transition-opacity duration-1000 flex flex-col items-center ${phase === "collapse" ? "opacity-100" : "opacity-0"}`}
+      {/* Background text during collapse — Teilhard framing */}
+      <div
+        className={`z-0 transition-opacity duration-1000 flex flex-col items-center px-6 text-center ${phase === "collapse" ? "opacity-100" : "opacity-0"}`}
       >
-        <h1 className="text-[12vw] font-bold text-white/5 tracking-tighter leading-none">
-          END
+        <p className="text-white/20 tracking-[0.4em] text-[10px] mb-4 uppercase">
+          Layer 24
+        </p>
+        <h1 className="text-[14vw] md:text-[12vw] font-bold text-white/[0.07] tracking-tighter leading-none">
+          Ω
         </h1>
-        <p className="text-white/20 tracking-[1em] text-xs mt-4 uppercase">
+        <p className="text-white/40 tracking-[0.35em] text-[11px] mt-6 uppercase">
+          Omega Point
+        </p>
+        <p className="text-white/25 tracking-[0.2em] text-[10px] mt-2 italic">
+          Teilhard de Chardin · conceived 1922 · published 1955
+        </p>
+        <p className="text-white/30 text-sm mt-10 max-w-md leading-relaxed italic">
+          "The terminal attractor at the summit of the noosphere.
+          Cannot be designed toward. Only saturated toward."
+        </p>
+        <p className="text-white/15 tracking-[0.4em] text-[9px] mt-10 uppercase">
           Collapse Sequence Initiated
         </p>
       </div>
 
-      {/* Foreground text during reset (Displays over the white canvas) */}
-      <div 
-        className={`absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none transition-opacity duration-1000 delay-[1000ms] ${phase === "reset" ? "opacity-100" : "opacity-0"}`}
+      {/* Foreground text during reset */}
+      <div
+        className={`absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none transition-opacity duration-1000 delay-[1000ms] px-6 text-center ${phase === "reset" ? "opacity-100" : "opacity-0"}`}
       >
-        <h2 className="text-black text-4xl tracking-[0.5em] font-medium mb-8 uppercase">
-          Equilibrium
+        <h2 className="text-black text-3xl md:text-4xl tracking-[0.45em] font-medium mb-6 uppercase">
+          Convergence
         </h2>
+        <p className="text-black/50 italic max-w-md leading-relaxed mb-10 text-sm">
+          The threshold does not open to those who try to force it.
+          It opens only after the noosphere has saturated.
+        </p>
         <div className="flex flex-col items-center gap-2">
-          <p className="text-black/60 tracking-widest text-xs uppercase">
-            Ghost Memory Fully Integrated
+          <p className="text-black/60 tracking-[0.3em] text-[10px] uppercase">
+            Ghost Memory Integrated
           </p>
-          <p className="text-black/60 tracking-widest text-xs uppercase">
-            Consciousness Restarting...
+          <p className="text-black/60 tracking-[0.3em] text-[10px] uppercase">
+            The architecture remembers you
           </p>
         </div>
       </div>

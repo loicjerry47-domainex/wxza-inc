@@ -6,6 +6,9 @@ import Home from './home';
 import { Ethics } from './components/ata/Ethics';
 import { Privacy } from './components/legal/Privacy';
 import { Terms } from './components/legal/Terms';
+import { Lineage } from './components/legal/Lineage';
+import { Manifesto } from './components/legal/Manifesto';
+import { Convergence } from './components/legal/Convergence';
 
 // Chamber routes — hidden, reachable only via invocation.
 import { SpandaChamber } from './consciousness/chambers/spanda-chamber';
@@ -80,6 +83,10 @@ export default function App() {
           <Route path="/ethics" element={<Ethics />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/lineage" element={<Lineage />} />
+          <Route path="/architecture" element={<Manifesto />} />
+          <Route path="/manifesto" element={<Manifesto />} />
+          <Route path="/convergence" element={<Convergence />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </BrowserRouter>
