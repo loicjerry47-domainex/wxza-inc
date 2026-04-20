@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p /tmp/moth_analysis)",
+      "Read(//tmp/**)",
+      "Bash(unzip -oq /Users/wxza/Downloads/Ata.zip -d Ata)",
+      "Bash(unzip -oq \"/Users/wxza/Downloads/WXZA PROTOTYPES.zip\" -d WXZA_PROTOTYPES)",
+      "Bash(unzip -oq \"/Users/wxza/Downloads/Hello World App.zip\" -d HelloWorld)",
+      "Read(//Users/wxza/Downloads/**)",
+      "Bash(mkdir -p /tmp/moth_analysis/ayi)",
+      "Bash(unzip -oq /Users/wxza/Downloads/ayi_all.zip -d /tmp/moth_analysis/ayi)",
+      "Bash(grep -iv \"^ui$\")",
+      "Bash(grep -iv \"^figma$\")",
+      "Bash(grep -iv \"^chambers$\")",
+      "Bash(npm install *)"
+    ]
+  }
+}
